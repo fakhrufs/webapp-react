@@ -7,7 +7,8 @@ this.state={
     Password:"",
     Name : "",
     Gender : "",
-    Phone : ""
+    Phone : "",
+    Status : ""
 
 }
 this.handlechange=this.handlechange.bind(this)
@@ -16,7 +17,7 @@ this.submithandler=this.submithandler.bind(this)
 }
 submithandler(){
 
-    fetch('http://localhost:4000/signup', {
+    fetch('http://127.0.0.1:9004/signup', {
      method: 'POST',
      headers: {'Content-Type':'application/json'},
      body: JSON.stringify( {
@@ -29,6 +30,7 @@ submithandler(){
     
     
     })
+    .then(res => res.text()).then(res => this.setState({status:res}))
    }
 handlechange(event){
 this.setState({
@@ -39,9 +41,61 @@ this.setState({
 
     render(){
         return(    <div>
+        <link
+          href="Template/vendor/bootstrap/css/bootstrap.min.css"
+          rel="stylesheet"
+        />
+        {/* Custom styles for this template */}
+        <link href="Template/css/heroic-features.css" rel="stylesheet" />
+        {/* Navigation */}
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+          <div className="container">
+            <a className="navbar-brand" href="/#">
+              Welcome!
+            </a>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarResponsive"
+              aria-controls="navbarResponsive"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+            <div className="collapse navbar-collapse" id="navbarResponsive">
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item active">
+                  <a className="nav-link" href="/home">
+                    Home
+                    <span className="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/reserve">
+                    Reserve
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/login">
+                    Login
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/register">
+                    Register
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        
         <title>Sign Up Form by Colorlib</title>
         
         <link rel="stylesheet" href="/A/fonts/material-icon/css/material-design-iconic-font.min.css" />
@@ -82,7 +136,9 @@ this.setState({
                 </form>
                 <div className="form-group">
                     <button type="Button" onClick = {this.submithandler}> Signup</button>
+                    
                   </div>
+                  {this.state.status}
               </div>
             </div>
           </section>
