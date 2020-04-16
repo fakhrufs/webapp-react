@@ -38,3 +38,5 @@ class App3 extends Component {
         })
     }
 }
+
+export default App3;
