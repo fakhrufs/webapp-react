@@ -47,8 +47,8 @@ this.setState({
         />
         {/* Custom styles for this template */}
         <link href="Template/css/heroic-features.css" rel="stylesheet" />
-        {/* Navigation */}
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+               {/* Navigation */}
+               <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
           <div className="container">
             <a className="navbar-brand" href="/#">
               Welcome!
@@ -87,6 +87,7 @@ this.setState({
                     Register
                   </a>
                 </li>
+                
               </ul>
             </div>
           </div>
