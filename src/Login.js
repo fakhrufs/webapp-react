@@ -83,6 +83,16 @@ return (
                     Register
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/searchrest">
+                    Search Restaurant
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/addrest">
+                    Add Restaurant
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
