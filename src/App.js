@@ -6,6 +6,7 @@ import Login from './Login';
 import Registration from './Registration';
 import searchtest from './AddRest';
 import searchFE from './searchFE';
+import Logout from './Logout';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
@@ -109,11 +110,7 @@ function App() {
                     Search Restaurant
                   </a>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/addrest">
-                    Add Restaurant
-                  </a>
-                </li>
+             
               </ul>
             </div>
           </div>
@@ -147,6 +144,8 @@ function App() {
     <Route exact path="/reserve" component={App4} />
     <Route exact path="/addrest" component={searchtest} />
     <Route exact path="/searchrest" component={searchFE} />
+    <Route exact path="/logout" component={Logout} />
+
 
     </div>
     </Router>

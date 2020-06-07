@@ -8,7 +8,8 @@ this.state={
     Name : "",
     Gender : "",
     Phone : "",
-    Status : ""
+    Status : "",
+    usertypeid:1
 
 }
 this.handlechange=this.handlechange.bind(this)
@@ -25,7 +26,8 @@ submithandler(){
     "Password":this.state.Password,
     "Gender":this.state.Gender,
     "Phone":this.state.Phone,
-    "Name":this.state.Name
+    "Name":this.state.Name,
+    'usertype':this.state.usertypeid
       } )
     
     

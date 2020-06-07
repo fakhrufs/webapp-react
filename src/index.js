@@ -4,9 +4,12 @@ import "./index.css";
 import App from "./App";
 import App4 from "./App4";
 import App3 from "./App3";
-
+import Admin from './Admin';
 import App6 from "./App6";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import App1 from "./Registration";
 
 import * as serviceWorker from "./serviceWorker";
