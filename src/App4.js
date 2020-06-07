@@ -4,7 +4,9 @@ class App4 extends React.Component {
     super();
     this.state = {
       noofpeople: "",
+      restraunts:[],
       reservationname: "",
+      selected_restraunt:"",
       email: "",
       phone: "",
       timereservation: "",
@@ -15,6 +17,12 @@ class App4 extends React.Component {
     this.submithandler = this.submithandler.bind(this);
     this.handlechange = this.handlechange.bind(this);
   }
+  async componentDidMount(){
+   await fetch("http://127.0.0.1:9004/getrestraunt", {
+      method: "get"
+      
+    }).then(res=>res.json()).then(res => this.setState({restraunts:res}))
+  }
   submithandler() {
     fetch("http://127.0.0.1:9004/reserve", {
       method: "POST",
@@ -22,6 +30,7 @@ class App4 extends React.Component {
       body: JSON.stringify({
         email: this.state.email,
         reservationname: this.state.reservationname,
+        restname:this.state.selected_restraunt,
         phone: this.state.phone,
         noofpeople: this.state.noofpeople,
         timereservation: this.state.timereservation,
@@ -118,6 +127,35 @@ class App4 extends React.Component {
                       <i class="zmdi zmdi-chevron-down"></i>
                     </div>
                   </div>
+                  
+                  <div class="form-wrapper form-select">
+                    <label for="">Restaurants</label>
+                   
+                    <div class="form-holder">
+                     
+                      <select
+                        name=""
+                        id=""
+                        class="form-control"
+                        name="selected_restraunt"
+                        value={this.state.selected_restraunt}
+                        placeholder="Enter username"
+                        onChange={this.handlechange}
+                      >
+                         {
+                       this.state.restraunts.map(arr=>
+                        <option key={arr.RestName} value={arr.RestName} class="option">
+                          {arr.RestName}
+                        </option>
+                       )}
+                      </select>
+                       
+                      <i class="zmdi zmdi-chevron-down"></i>
+                       
+                    </div>
+                       
+                  </div>
+                        
                   <div class="form-wrapper">
                     <label for="" class="label-input">
                       Name
@@ -198,7 +236,8 @@ class App4 extends React.Component {
                 </div>
               </div>
             </div>
-
+{this.state.noofpeople}
+{this.state.selected_restraunt}
             <script src="asset/js/jquery-3.3.1.min.js"></script>
             <script src="asset/js/main.js"></script>
           </body>
