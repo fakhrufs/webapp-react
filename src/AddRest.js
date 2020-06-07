@@ -14,6 +14,8 @@ class Login extends Component {
     this.handlechange = this.handlechange.bind(this);
     this.submithandler = this.submithandler.bind(this);
   }
+
+  /* l */
   submithandler() {
     fetch("http://localhost:9004/add", {
       method: "POST",
