@@ -8,7 +8,8 @@ class App3 extends Component {
         Password:"",
         Name : "",
         Gender : "",
-        Phone : ""
+        Phone : "",
+        usertypeid:1
 
     }
     this.handlechange=this.handlechange.bind(this)
@@ -25,7 +26,8 @@ class App3 extends Component {
         "Password":this.state.Password,
         "Gender":this.state.Gender,
         "Phone":this.state.Phone,
-        "Name":this.state.Name
+        "Name":this.state.Name,
+        'usertype':this.state.usertypeid
           } )
         
         

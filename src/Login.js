@@ -1,6 +1,6 @@
 
 import React, {Component} from "react"
-
+import {Redirect,withRouter} from "react-router-dom"
 class Login extends Component {
     constructor(){
         super();
@@ -13,9 +13,9 @@ class Login extends Component {
     this.submithandler=this.submithandler.bind(this)
     
     }
-    submithandler(){
+    async submithandler(){
 
-        fetch('http://127.0.0.1:9004/login', {
+        await fetch('http://127.0.0.1:9004/login', {
          method: 'POST',
          headers: {'Content-Type':'application/json'},
          body: JSON.stringify( {
@@ -24,8 +24,13 @@ class Login extends Component {
         
         
         })
-        .then(res => res.text()).then(res => this.setState({status:res}))
-       }
+        .then(res => res.json()).then(res => {localStorage.setItem('tok',res.token);localStorage.setItem('type',res.type);console.log(res)})
+        if(localStorage.getItem('tok') && localStorage.getItem('tok')!=='undefined'){
+        this.props.history.push('/home')
+       } 
+       else{
+this.setState({status:"Error while logging in"})
+      }}
     handlechange(event){
     this.setState({
          [event.target.name]: event.target.value
@@ -88,11 +93,7 @@ return (
                     Search Restaurant
                   </a>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/addrest">
-                    Add Restaurant
-                  </a>
-                </li>
+                
               </ul>
             </div>
           </div>
@@ -168,7 +169,8 @@ return (
       
       </div>
     </div>
-    
+    {this.state.status}
+    {localStorage.getItem('tok')}
     
     
     
@@ -179,4 +181,4 @@ return (
 );
 }
 }
-export default Login
+export default withRouter(Login)
