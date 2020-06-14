@@ -1,22 +1,49 @@
 import React from "react";
 import {Redirect,withRouter} from "react-router-dom"
+import Header_customer from "./Header_customer";
+import Header_Admin from "./Header_Admin"
 class App6 extends React.Component {
 constructor(){
   super()
   this.state={
     bookings:[]
   }
-  this.logout=this.logout.bind(this)
+  this.OnAccept=this.OnAccept.bind(this)
+  this.OnDelete=this.OnDelete.bind(this)
+  
+
 }
-  async componentDidMount(){
-    console.log('hello');
-    if(localStorage.getItem('type')=='Admin'){
-        fetch('http://localhost:9004/getrestrauntss', {
-         method: 'get',
-         headers:new Headers({'Content-Type':'application/json','authorization':localStorage.getItem('tok')})
-        }).then(res=>res.json()).then(res=>this.setState({bookings:res}))
+async componentDidMount(){
+  console.log('hello');
+  if(localStorage.getItem('type')=='Admin'){
+      fetch('http://localhost:9004/getrestrauntss', {
+       method: 'get',
+       headers:new Headers({'Content-Type':'application/json','authorization':localStorage.getItem('tok')})
+      }).then(res=>res.json()).then(res=>this.setState({bookings:res}))
+  }
     }
-      }
+
+ OnAccept(id){
+   console.log("wassssssssiii")
+  fetch("http://127.0.0.1:9004/Acceptreservation", {
+    method: "post",
+    headers: { "Content-Type": "application/json","authorization":localStorage.getItem('tok') },
+    body: JSON.stringify({
+      id:id
+    }),
+  }).then(window.location.reload());
+  }
+  OnDelete(id){
+    fetch("http://127.0.0.1:9004/Declinereservation", {
+    method: "put",
+    headers: { "Content-Type": "application/json","authorization":localStorage.getItem('tok') },
+    body: JSON.stringify({
+      id:id
+    }),
+  }).then(window.location.reload())
+  }
+  
+ 
       logout(){
         localStorage.clear('tok')
         this.props.history.push('/home')
@@ -25,55 +52,23 @@ constructor(){
   render() {
     if(localStorage.getItem('tok')!=='undefined' && localStorage.getItem('type')=='Admin')
     return(<div>
-         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-          <div className="container">
-            <a className="navbar-brand" href="/#">
-              Welcome!
-            </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarResponsive"
-              aria-controls="navbarResponsive"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-            <div className="collapse navbar-collapse" id="navbarResponsive">
-              <ul className="navbar-nav ml-auto">
-              <li className="nav-item active">
-                  <a className="nav-link" href="/home">
-                    Home
-                    <span className="sr-only">(current)</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/addrest">
-                    Add Restaurant
-                  </a>
-                </li>
-                <li className="nav-item" onClick={this.logout}>
-                  <a className="nav-link" >
-                    Log out
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      
+        
+      <Header_Admin></Header_Admin>
     Admin
     <br></br>
     {this.state.bookings.map(arr=>
       <li key={arr.reservationid}>
       
         <div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start ">
+        <button onClick={()=>this.OnAccept(arr.reservationid)}>Accept</button>
+    <button onClick={()=>this.OnDelete(arr.reservationid)}>Decline</button>
+  <a href="" class="list-group-item list-group-item-action flex-column align-items-start ">
     <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">{arr.restName}</h5>
     <small>No of People:{arr.noofpeople}</small>
+    <small>ID:{arr.reservationid}</small>
+    <br></br>
+
     </div>
     <p class="mb-1">{arr.reservationname}</p>
     <small>{arr.timereservation}</small>
@@ -87,71 +82,7 @@ constructor(){
     return (
       
       <div>
-        <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <meta name="description" content />
-        <meta name="author" content />
-        <title>Heroic Features - Start Bootstrap Template</title>
-        {/* Bootstrap core CSS */}
-        <link
-          href="Template/vendor/bootstrap/css/bootstrap.min.css"
-          rel="stylesheet"
-        />
-        {/* Custom styles for this template */}
-        <link href="Template/css/heroic-features.css" rel="stylesheet" />
-        {/* Navigation */}
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-          <div className="container">
-            <a className="navbar-brand" href="/#">
-              Welcome!
-            </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarResponsive"
-              aria-controls="navbarResponsive"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-            <div className="collapse navbar-collapse" id="navbarResponsive">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item active">
-                  <a className="nav-link" href="/home">
-                    Home
-                    <span className="sr-only">(current)</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/reserve">
-                    Reserve
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/login">
-                    Login
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/register">
-                    Register
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/searchrest">
-                    Search Restaurant
-                  </a>
-                </li>
-                
-              </ul>
-            </div>
-          </div>
-        </nav>
+    <Header_customer></Header_customer>
       
         {/* Page Content */}
         <div className="container">

@@ -1,4 +1,5 @@
 import React from "react";
+import Header_customer from "./Header_customer"
 class App4 extends React.Component {
   constructor() {
     super();
@@ -26,7 +27,7 @@ class App4 extends React.Component {
   submithandler() {
     fetch("http://127.0.0.1:9004/reserve", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json","authorization":localStorage.getItem('tok') },
       body: JSON.stringify({
         email: this.state.email,
         reservationname: this.state.reservationname,
@@ -49,6 +50,7 @@ class App4 extends React.Component {
   render() {
     return (
       <div>
+<Header_customer></Header_customer>
         <html>
         
           <head>
