@@ -1,6 +1,3 @@
-## IGNORE EVERYTHING BELOW THIS. IT IS A TEMPALATE OF README.md FILE
-
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
