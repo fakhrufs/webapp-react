@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {withRouter} from "react-router-dom"
 class Logout extends React.Component{
 constructor(){
     super();
@@ -18,4 +18,4 @@ submithandler(){
         )
     }
 }
-export default Logout
+export default withRouter(Logout)

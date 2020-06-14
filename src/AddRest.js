@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-
+import Header_superadmin from "./Header_superadmin"
 class Login extends Component {
   constructor() {
     super();
@@ -14,8 +14,6 @@ class Login extends Component {
     this.handlechange = this.handlechange.bind(this);
     this.submithandler = this.submithandler.bind(this);
   }
-
-  /* l */
   submithandler() {
     fetch("http://localhost:9004/add", {
       method: "POST",
@@ -39,6 +37,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <Header_superadmin></Header_superadmin>
         <link
           href="Template/vendor/bootstrap/css/bootstrap.min.css"
           rel="stylesheet"
@@ -46,40 +45,7 @@ class Login extends Component {
         {/* Custom styles for this template */}
         <link href="Template/css/heroic-features.css" rel="stylesheet" />
         {/* Navigation */}
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-          <div className="container">
-            <a className="navbar-brand" href="/#">
-              Welcome!
-            </a>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarResponsive"
-              aria-controls="navbarResponsive"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-            <div className="collapse navbar-collapse" id="navbarResponsive">
-              <ul className="navbar-nav ml-auto">
-              <li className="nav-item active">
-                  <a className="nav-link" href="/home">
-                    Home
-                    <span className="sr-only">(current)</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/addrest">
-                    Add Restaurant
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
+        
         <title>Login V15</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

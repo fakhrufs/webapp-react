@@ -1,6 +1,8 @@
 
 import React, { Component } from "react";
 import "./Seac.css";
+import Header_customer from './Header_customer';
+
 class searchFE extends Component {
   constructor() {
     super();
@@ -9,80 +11,39 @@ class searchFE extends Component {
       Donors: [],
       RestName: "",
       status: "",
+      restraunts:[]
     };
     this.handlechange = this.handlechange.bind(this);
-    this.submitHandler = this.submitHandler.bind(this);
   }
-  handlechange(event) {
+  async componentDidMount(){
+    await fetch("http://127.0.0.1:9004/getrestraunt", {
+       method: "get"
+       
+     }).then(res=>res.json()).then(res => this.setState({restraunts:res}))
+   }
+  async handlechange(event) {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
-  submitHandler() {
-    fetch("http://127.0.0.1:9004/hakun", {
+    var namess=this.state.RestName+"%"
+    await fetch("http://127.0.0.1:9004/hakun", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        RestName: this.state.RestName,
+        RestName: namess,
       }),
     })
-      .then((res) => res.json())
-      .then((arr) => this.setState({ Donors: arr }));
+      .then(async (res) =>await res.json())
+      .then((res) => this.setState({ restraunts: res }));
   }
+  
   render() {
     return (
       <div>
+        <Header_customer></Header_customer>
         <div>
           {/* Navigation */}
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div className="container">
-              <a className="navbar-brand" href="/#">
-                Welcome!
-              </a>
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarResponsive"
-                aria-controls="navbarResponsive"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon" />
-              </button>
-              <div className="collapse navbar-collapse" id="navbarResponsive">
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item active">
-                    <a className="nav-link" href="/home">
-                      Home
-                      <span className="sr-only">(current)</span>
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/reserve">
-                      Reserve
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/login">
-                      Login
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/register">
-                      Register
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/searchrest">
-                      Search Restaurant
-                    </a>
-                  </li>
-                 
-                </ul>
-              </div>
-            </div>
-          </nav>
+          
           {/*---- Include the above in your HEAD tag --------*/}
           <title>Awesome Search Box</title>
           <link
@@ -105,15 +66,12 @@ class searchFE extends Component {
                 <input
                   className="search_input"
                   name="RestName"
-                  value={this.state.RestName}
                   onChange={this.handlechange}
-                  type="text"
                   placeholder="Enter Restaurant Name"
                 />
                 <a
-                  href="#"
+                  href=""
                   className="search_icon"
-                  onClick={this.submitHandler}
                 >
                   <i className="fas fa-search" />
                 </a>
@@ -123,7 +81,7 @@ class searchFE extends Component {
         </div>
         Name | Cuisine | Location | Rating
         <ul>
-          {this.state.Donors.map((arr) => (
+          {this.state.restraunts.map((arr) => (
             <li key={arr.RestName}>
               {arr.RestName + " | "}
               {arr.Cuisine + " | "}
